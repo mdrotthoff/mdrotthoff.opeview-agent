@@ -1,0 +1,11 @@
+---
+# $Author$
+# $Date$
+
+# tasks file for opsview
+- name: Create directory for additional config files
+  file: state=directory
+        owner="{{nrpe_user}}"
+        group="{{nrpe_group}}"
+        mode=0755
+        path="{{nrpe_include_dir}}"

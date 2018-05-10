@@ -1,0 +1,11 @@
+---
+# $Author$
+# $Date$
+
+# defaults file for opsview
+opsview_directory:     "/usr/local/nagios"
+opsview_cfg_directory: "{{opsview_directory}}/etc"
+opsview_cfg_file:      "{{opsview_cfg_directory}}/nrpe.cfg"
+opsview_cfg_include:   "{{opsview_cfg_directory}}/nrpe_local"
+opsview_user:          "nagios"
+opsview_group:         "nagios"
