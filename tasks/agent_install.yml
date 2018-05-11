@@ -10,7 +10,7 @@
 
 - name: Copy OpsView Agent package file to the host
   copy:
-    src:   "{{opsview_agent_agent_source}}/{{ opsview_agent_package }}"
+    src:   "{{ opsview_agent_agent_source }}/{{ opsview_agent_package }}"
     dest:  "/tmp/{{ opsview_agent_package }}"
     owner: root
     group: root
