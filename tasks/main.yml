@@ -9,6 +9,10 @@
     list:    opsview-agent
   register:  opsview_agent_current_version
 
+- name: Dump current state of variables
+  debug:
+    var:  vars
+
 - name: Set opsview_agent_current_version with the current version installed
   set_fact:
     opsview_agent_current_version:  "{{ opsview_agent_current_version.results[0].version }}"
