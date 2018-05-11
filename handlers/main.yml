@@ -21,6 +21,7 @@
     msg:  "Starting {{opsview_agent_service}}"
 
 - name: Start the OpsView Agent
+  listen: Restart OpsView Agent
   service:
     name:  "{{opsview_agent_service}}"
     state: started

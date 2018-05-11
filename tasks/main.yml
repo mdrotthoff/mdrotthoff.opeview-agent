@@ -17,7 +17,7 @@
   set_fact:
     opsview_agent_current_version:  "0.0.0"
 
-- name: Set version of the OpsView Agent currently installed
+- name: Capture the version of the OpsView Agent currently installed
   set_fact:
     opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
   when:                             opsview_agent_version_check.results[0] is defined
