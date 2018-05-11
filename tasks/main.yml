@@ -9,14 +9,9 @@
     list:    opsview-agent
   register:  opsview_agent_version_check
 
-#- name: Dump current state of variables
-#  debug:
-#    var:  vars
-
 - name: Set a default OpsView Agent version of 0.0.0
   set_fact:
-    opsview_agent_current_version:  "(undefined)"
-#    opsview_agent_current_version:  "0.0.0"
+    opsview_agent_current_version:  "0.0.0"
 
 - name: Capture the version of the OpsView Agent currently installed
   set_fact:
