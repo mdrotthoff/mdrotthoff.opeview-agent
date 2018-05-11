@@ -23,8 +23,8 @@
     var:  opsview_agent_package
 
 - name: Install the OpsView agent if needed
-  include_task: agent_install.yml
-  when:  (opsview_agent_version is version(opsview_agent_current_version, '>'))
+  include_tasks: agent_install.yml
+  when:          (opsview_agent_version is version(opsview_agent_current_version, '>'))
 
 #- name: Check the version of the Opsview-Agent installed
 #  block:
