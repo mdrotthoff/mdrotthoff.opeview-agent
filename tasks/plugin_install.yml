@@ -45,8 +45,6 @@
     owner: root
     group: root
     mode:  '0600'
-  loop:
-  -    "{{ plugin_item.source }}"
-  -    "{{ plugin_item.name }}"
+  loop:    "{{ plugin_item.source }} + {{ plugin_item.name }}"
 #  when:    plugin_item.source is defined
 #  loop:    "{{ plugin_item.source | default([]) }}"
