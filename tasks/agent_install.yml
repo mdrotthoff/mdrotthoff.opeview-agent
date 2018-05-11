@@ -8,14 +8,14 @@
   debug:
     msg:  "Upgrading OpsView Agent version {{ opsview_agent_current_version }} to {{ opsview_agent_version }}"
 
-- name: Calculate the OpsView Agent source and target
-  set_fact:
-    opsview_source_file:      "files/opsview/agents/{{ opsview_agent_package }}"
-    opsview_destination_file: "/tmp/{{ opsview_agent_package }}"
+#- name: Calculate the OpsView Agent source and target
+#  set_fact:
+#    opsview_source_file:      "files/opsview/agents/{{ opsview_agent_package }}"
+#    opsview_destination_file: "/tmp/{{ opsview_agent_package }}"
 
 - name: Copy OpsView Agent rpm file to server
   copy:
-    src:   "files/opsview/agents/{{ opsview_agent_package }}"
+    src:   "{{opsview_agent_agent_source}}/{{ opsview_agent_package }}"
     dest:  "/tmp/{{ opsview_agent_package }}"
     owner: root
     group: root
