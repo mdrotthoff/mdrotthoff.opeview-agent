@@ -12,7 +12,7 @@
 
 - name: Set opsview_agent_current_version with the current version installed
   set_fact:
-    opsview_agent_current_version:  "{{ opsview_agent_version.results[0].version }}"
+    opsview_agent_current_version:  "{{ opsview_agent_current_version.results[0].version }}"
 
 - name: Check the version of the Opsview-Agent installed
   block:
