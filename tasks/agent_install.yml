@@ -13,6 +13,14 @@
 #    opsview_source_file:      "files/opsview/agents/{{ opsview_agent_package }}"
 #    opsview_destination_file: "/tmp/{{ opsview_agent_package }}"
 
+- name: Display source file name
+  debug:
+    msg: "File source: {{opsview_agent_agent_source}}/{{ opsview_agent_package }}"
+
+- name: Display target file name
+  debug:
+    msg: "File target: /tmp/{{ opsview_agent_package }}"
+
 - name: Copy OpsView Agent rpm file to server
   copy:
     src:   "{{opsview_agent_agent_source}}/{{ opsview_agent_package }}"
