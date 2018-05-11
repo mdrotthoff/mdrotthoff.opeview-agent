@@ -6,3 +6,15 @@
 # plugin-install file for opsview-agent
 
 # Deploy and configure the local plugins
+- name: Display the name of the plugin
+  debug:
+    msg: "Processing plugin {{item.name}}"
+
+- name: Display the sources of the plugin
+  debug:
+    msg: "Processing plugin {{item.source}}"
+
+- name: Display the sudo status of the plugin
+  debug:
+    msg: "Processing plugin {{item.sudo}}"
+

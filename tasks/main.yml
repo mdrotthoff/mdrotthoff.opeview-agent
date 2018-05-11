@@ -36,5 +36,6 @@
 
 - name: Deploy and configure local plug-ins
   include_tasks: plugin_install.yml
-  when:   opsview_agent_plugins is defined
+  with_items:    {{opsview_agent_plugins}}
+  when:          opsview_agent_plugins is defined
   
