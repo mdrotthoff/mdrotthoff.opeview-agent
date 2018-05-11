@@ -17,7 +17,7 @@
   block:
     - name: Update OpsView Agent version
       debug:
-        msg:  "Upgrading OpsView Agent version {{ opsview_agent_current_version }} to {{ opsview_agent.source_version }}"
+        msg:  "Upgrading OpsView Agent version {{ opsview_agent_current_version }} to {{ opsview_agent_version }}"
 
 #  - name: Calculate the OpsView Agent file name
 #    set_fact:
@@ -58,13 +58,13 @@
 #      enabled: false
 #    register:  opsview_service_stop
 
-  when:  (opsview_agent_current_version | version_compare(opsview_agent_version, 'lt'))
+  when:  (opsview_agent_version is version(opsview_agent_current_version, '>'))
 
 
 - name: OpsView Agent version is current
   debug:
     msg:  "OpsView Agent version {{ opsview_agent.source_version }} is already current"
-  when:   (opsview_agent_current_version | version_compare(opsview_agent_version, 'ge'))
+  when:   (opsview_agent_version is version(opsview_agent_current_version, '<='))
 
 #- name: Start the OpsView Agent
 #  service:
