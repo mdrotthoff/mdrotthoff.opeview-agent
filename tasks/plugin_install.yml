@@ -5,9 +5,9 @@
 
 # plugin-install file for opsview-agent
 
-#- name: Dump the host variables oin the plugin_install tasks
-#  debug:
-#    var:  vars
+- name: Dump the host variables oin the plugin_install tasks
+  debug:
+    var:  vars
 
 - name: Display the name of the plugin
   debug:
