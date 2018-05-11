@@ -13,18 +13,9 @@
   debug:
     msg: "Processing plug-in named {{ plugin_item.name }}"
 
-- name: Display the sources of the plugin
-  debug:
-    msg: "Plug-in sources {{ plugin_item.source }}"
-  when: plugin_item.source is defined
-
 - name: Display the sudo status of the plugin
   debug:
     msg: "Plug-in requires sudo {{ plugin_item.sudo }}"
-
-- name: Display the name of the plugin
-  debug:
-    msg: "Processing plug-in named {{ plugin_item.name }}"
 
 - name: Installing plug-in {{ plugin_item.name }}
   debug:
@@ -38,30 +29,13 @@
     group: root
     mode:  '0600'
 
-- name: Dump plugin sources
-  debug:
-    var: plugin_item.source
-  when:  plugin_item.source is defined
-
-- name: Dump plugin name
-  debug:
-    var: plugin_item.name
-
-- name: Dump plugin sources to install
-  debug:
-    var: "(plugin_item.source | default([])) | list + [ plugin_item.name ]"
-
-- name: Dump unique plugin sources to install
-  debug:
-    var: "((plugin_item.source | default([])) | list + [ plugin_item.name ]) | unique"
-
 - name: Create list of sources to install
   set_fact:
     opsview_agent_plugin_list: "{{ ((plugin_item.source | default([])) | list + [ plugin_item.name ]) | unique }}"
 
 - name: Dump created source list
   debug:
-    var: opsview_agent_plugin_list
+    var: opsview_agent_plugin_source_list
 
 - name: Copy the source to the local plug-in directory
   copy:
@@ -70,7 +44,7 @@
     owner: root
     group: root
     mode:  '0600'
-  loop:    ((plugin_item.source | default([])) | list + [ plugin_item.name ]) | unique
+  loop:    opsview_agent_plugin_source_list
 #  when:    plugin_item.source is defined
 #  loop:    "{{ plugin_item.source | default([]) }}"
 #  loop:    "plugin_item.source | default([]) | list + [ plugin_item.name ] | unique"
