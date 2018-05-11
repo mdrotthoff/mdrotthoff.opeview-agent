@@ -25,4 +25,4 @@
     dest:  "{{opsview_agent_cfg_file}}"
     line:  "include_dir={{opsview_agent_cfg_local}}"
     state: present
-  notify:  Restart OpsView agent
+  notify:  Restart OpsView Agent

@@ -8,19 +8,6 @@
   debug:
     msg:  "Upgrading OpsView Agent version {{ opsview_agent_current_version }} to {{ opsview_agent_version }}"
 
-#- name: Calculate the OpsView Agent source and target
-#  set_fact:
-#    opsview_source_file:      "files/opsview/agents/{{ opsview_agent_package }}"
-#    opsview_destination_file: "/tmp/{{ opsview_agent_package }}"
-
-- name: Display source file name
-  debug:
-    msg: "File source: {{opsview_agent_agent_source}}/{{ opsview_agent_package }}"
-
-- name: Display target file name
-  debug:
-    msg: "File target: /tmp/{{ opsview_agent_package }}"
-
 - name: Copy OpsView Agent rpm file to server
   copy:
     src:   "{{opsview_agent_agent_source}}/{{ opsview_agent_package }}"
@@ -29,30 +16,16 @@
     group: root
     mode:  '0600'
 
-- name: Capture directory listing of /tmp 
-  shell:    ls -lahR /tmp
-  register: opsview_ls_tmp
-
-- name: Display directory listing of /tmp
-  debug:
-    var: opsview_ls_tmp
-
-- name: Capture tree listing of /tmp 
-  shell:    tree -aug /tmp
-  register: opsview_tree_tmp
-
-- name: Display tree listing of /tmp
-  debug:
-    var: opsview_tree_tmp
-
-- name: Display target file name
-  debug:
-    msg: "File target: /tmp/{{ opsview_agent_package }}"
-
+# Ignore errors while in check mode
 - name: Install the OpsView Agent package.
   package:
     name:         "/tmp/{{ opsview_agent_package }}"
     state:        present
-  notify:         Restart OpsView
-#  ignore_errors:  "{{ ansible_check_mode }}"
-  
+  notify:         Restart OpsView Agent
+  register:       opsview_agent_install
+  ignore_errors:  "{{ ansible_check_mode }}"
+
+#- name: Set opsview_agent_current_version with the current version installed
+#  set_fact:
+#    opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
+#  when:                             opsview_agent_version_check.results[0] is defined
