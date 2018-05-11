@@ -29,3 +29,8 @@
 #  set_fact:
 #    opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
 #  when:                             opsview_agent_version_check.results[0] is defined
+
+- name: Remove the temporary packaged used for the install
+  file:
+    name:         "/tmp/{{ opsview_agent_package }}"
+    state:        absent
