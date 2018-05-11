@@ -17,3 +17,5 @@ opsview_agent_version:           "5.4.0.171370838"
 opsview_agent_package:           "opsview-agent-{{opsview_agent_version}}-1.el{{ansible_distribution_major_version}}.{{ansible_architecture}}.rpm"
 opsview_agent_agent_source:      "files/opsview/agent"
 opsview_agent_plugin_source:     "files/opsview/plugins"
+
+#opsview_agent_plugin:

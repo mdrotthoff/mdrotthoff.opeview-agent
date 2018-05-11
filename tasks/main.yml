@@ -29,4 +29,8 @@
 
 - name: Configure local plug-ing support for the OpsView Agent
   include_tasks: plugin_config.yml
+
+- name: Deploy and configure local plug-ins
+  include_tasks: plugin_install.yml
+  when:   opsview_agent_plugins is defined
   
