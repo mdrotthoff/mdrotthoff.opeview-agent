@@ -16,6 +16,7 @@
 - name: Display the sources of the plugin
   debug:
     msg: "Plug-in sources {{ plugin_item.source }}"
+  when: plugin_item.source is defined
 
 - name: Display the sudo status of the plugin
   debug:
