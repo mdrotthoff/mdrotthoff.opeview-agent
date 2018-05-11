@@ -29,6 +29,26 @@
     group: root
     mode:  '0600'
 
+- name: Capture directory listing of /tmp 
+  shell:    ls -lahR /tmp
+  register: opsview_ls_tmp
+
+- name: Display directory listing of /tmp
+  debug:
+    var: opsview_ls_tmp
+
+- name: Capture tree listing of /tmp 
+  shell:    tree -aug /tmp
+  register: opsview_tree_tmp
+
+- name: Display tree listing of /tmp
+  debug:
+    var: opsview_tree_tmp
+
+- name: Display target file name
+  debug:
+    msg: "File target: /tmp/{{ opsview_agent_package }}"
+
 - name: Install the OpsView Agent package.
   package:
     name:         "/tmp/{{ opsview_agent_package }}"
