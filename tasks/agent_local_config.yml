@@ -23,6 +23,6 @@
 - name: Ensure the local plug-in configuration files are included by the agent
   lineinfile:
     dest:  "{{opsview_agent_cfg_file}}"
-    line:  "include_dir={{opsview_agent_cfg_local}}"
+    line:  "include_dir={{opsview_agent_cfg_local}}xyz"
     state: present
   notify:  Restart OpsView Agent
