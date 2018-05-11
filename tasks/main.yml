@@ -9,6 +9,10 @@
     list:    opsview-agent
   register:  opsview_agent_version_check
 
+- name: Dump the host variables
+  debug:
+    var:  vars
+
 - name: Set a default OpsView Agent version of 0.0.0
   set_fact:
     opsview_agent_current_version:  "0.0.0"
