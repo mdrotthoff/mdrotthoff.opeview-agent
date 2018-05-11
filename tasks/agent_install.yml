@@ -4,9 +4,9 @@
 # $Source$
 
 # agent-install tasks file for opsview-agent
-- name: Update OpsView Agent version
+- name: Install / upgrade the OpsView Agent version
   debug:
-    msg:  "Upgrading OpsView Agent version {{ opsview_agent_current_version }} to {{ opsview_agent_version }}"
+    msg:  "Upgrading OpsView Agent version from {{ opsview_agent_current_version }} to {{ opsview_agent_version }}"
 
 - name: Copy OpsView Agent package file to the host
   copy:
