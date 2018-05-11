@@ -7,7 +7,7 @@
 - name: Get the version of Opsview-Agent installed
   package:
     list:    opsview-agent
-  register:  opsview_agent_current_version
+  register:  opsview_agent_version_check
 
 - name: Dump current state of variables
   debug:
@@ -15,8 +15,8 @@
 
 - name: Set opsview_agent_current_version with the current version installed
   set_fact:
-    opsview_agent_current_version:  "{{ opsview_agent_current_version.results[0].version }}"
-  when:                             opsview_agent_current_version.results[0] is defined
+    opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
+  when:                             opsview_agent_version_check.results[0] is defined
 
 - name: Set a default opsview_agent_current_version if it is not currently defined
   set_fact:
