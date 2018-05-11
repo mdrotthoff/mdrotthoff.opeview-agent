@@ -7,7 +7,8 @@
 - name: Get the version of Opsview-Agent installed
   package:
     list:    opsview-agent
-  register:  opsview_agent_version
+  register:  opsview_agent_current_version
+# *** TODO:  Test fix opsview_agent_version collision  ***
 
 - name: Set opsview_agent_current_version with the current version installed
   set_fact:
