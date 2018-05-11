@@ -24,7 +24,7 @@
   notify:         Restart OpsView Agent
   ignore_errors:  "{{ ansible_check_mode }}"
 
-- name: Get the current version of the Opsview Agent installed
+- name: Get the version of the Opsview Agent now installed
   package:
     list:    opsview-agent
   register:  opsview_agent_version_check
