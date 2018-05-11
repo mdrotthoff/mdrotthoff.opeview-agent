@@ -18,9 +18,13 @@ opsview_agent_package:           "opsview-agent-{{opsview_agent_version}}-1.el{{
 opsview_agent_agent_source:      "files/opsview/agent"
 opsview_agent_plugin_source:     "files/opsview/plugins"
 
-opsview_agent_plugin:
-  - name:  'check_diskstat'
+opsview_agent_plugins:
+  - name: 'check_diskstat'
     source:
       -    'check_diskstat'
       -    'check_diskstat.cfg'
+    sudo:  false
+  - name: 'check_es_attribute_jsonpath_vauto'
+    source:
+      -    'check_es_attribute_jsonpath_vauto'
     sudo:  false
