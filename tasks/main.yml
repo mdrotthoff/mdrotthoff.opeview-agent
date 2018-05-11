@@ -38,6 +38,6 @@
   include_tasks: plugin_install.yml
   loop:          "{{ opsview_agent_plugins }}"
   loop_control:
-    loop_var:    pluging_item
+    loop_var:    plugin_item
   when:          opsview_agent_plugins is defined
   
