@@ -8,13 +8,28 @@
 # Deploy and configure the local plugins
 - name: Display the name of the plugin
   debug:
-    msg: "Processing plugin {{item.name}}"
+    msg: "Processing plug-in named {{ item.name }}"
 
 - name: Display the sources of the plugin
   debug:
-    msg: "Processing plugin {{item.source}}"
+    msg: "Plug-in sources {{ item.source }}"
 
 - name: Display the sudo status of the plugin
   debug:
-    msg: "Processing plugin {{item.sudo}}"
+    msg: "Plug-in requires sudo {{ item.sudo }}"
 
+- name: Display the name of the plugin
+  debug:
+    msg: "Processing plug-in named {{ item.name }}"
+
+- name: Installing plug-in {{ item.name }}
+  debug:
+    msg: "Installing plug-in {{ item.name }}"
+
+- name: Copy the source to the local plug-in directory
+  copy:
+    src:   "{{ opsview_agent_plugin_source }}/{{ item.name }}"
+    dest:  "{{ opsview_agent_plugin_local }}/{{ item.name }}"
+    owner: root
+    group: root
+    mode:  '0600'
