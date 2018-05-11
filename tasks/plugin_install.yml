@@ -62,6 +62,7 @@
     owner: root
     group: root
     mode:  '0600'
-  loop:    "plugin_item.source | default([]) | list + [ plugin_item.name ] | unique"
+  loop:    "((plugin_item.source | default([])) | list + [ plugin_item.name ]) | unique"
 #  when:    plugin_item.source is defined
 #  loop:    "{{ plugin_item.source | default([]) }}"
+#  loop:    "plugin_item.source | default([]) | list + [ plugin_item.name ] | unique"
