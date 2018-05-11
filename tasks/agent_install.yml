@@ -16,14 +16,15 @@
 - name: Copy OpsView Agent rpm file to server
   copy:
     src:   "{{opsview_agent_agent_source}}/{{ opsview_agent_package }}"
-    dest:  "{{ opsview_agent_package }}"
+    dest:  "/tmp/{{ opsview_agent_package }}"
     owner: root
     group: root
     mode:  '0600'
 
 - name: Install the OpsView Agent package.
   package:
-    name:         "{{ opsview_agent_package }}"
+    name:         "/tmp/{{ opsview_agent_package }}"
     state:        present
-  ignore_errors:  "{{ ansible_check_mode }}"
   notify:         Restart OpsView
+#  ignore_errors:  "{{ ansible_check_mode }}"
+  
