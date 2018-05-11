@@ -72,7 +72,7 @@
 
 - name: OpsView Agent version is current
   debug:
-    msg:  "OpsView Agent version {{ opsview_agent.source_version }} is already current"
+    msg:  "OpsView Agent version {{ opsview_agent_current_version }} is already current"
   when:   (opsview_agent_version is version(opsview_agent_current_version, '<='))
 
 #- name: Start the OpsView Agent
