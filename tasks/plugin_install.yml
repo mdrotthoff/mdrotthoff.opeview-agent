@@ -40,7 +40,7 @@
 
 - name: Dump plugin sources
   debug:
-    var: "{{ plugin_item.source }} + {{ plugin_item.name }}"
+    var: "{{ plugin_item.source }} + [ {{ plugin_item.name }} ]"
 
 - name: Copy the source to the local plug-in directory
   copy:
