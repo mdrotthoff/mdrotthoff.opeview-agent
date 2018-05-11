@@ -8,7 +8,7 @@
   debug:
     msg:  "Upgrading OpsView Agent version {{ opsview_agent_current_version }} to {{ opsview_agent_version }}"
 
-- name: Copy OpsView Agent rpm file to server
+- name: Copy OpsView Agent package file to the host
   copy:
     src:   "{{opsview_agent_agent_source}}/{{ opsview_agent_package }}"
     dest:  "/tmp/{{ opsview_agent_package }}"
@@ -24,19 +24,19 @@
   notify:         Restart OpsView Agent
   ignore_errors:  "{{ ansible_check_mode }}"
 
-- name: Get the current version of Opsview-Agent installed
+- name: Get the current version of the Opsview Agent installed
   package:
     list:    opsview-agent
   register:  opsview_agent_version_check
 
 # Ignore errors while in check mode
-- name: Set opsview_agent_current_version with the version now installed
+- name: Capture the version of the OpsView Agent now installed
   set_fact:
     opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
   when:                             opsview_agent_version_check.results[0] is defined
   ignore_errors:  "{{ ansible_check_mode }}"
 
-- name: Remove the temporary packaged used for the install
+- name: Remove the temporary package used for the install
   file:
     name:         "/tmp/{{ opsview_agent_package }}"
     state:        absent
