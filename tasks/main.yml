@@ -15,6 +15,14 @@
 
 - name: Check the version of the Opsview-Agent installed
   block:
+    - name: Display target OpsView Agent version
+      debug:
+        var:  opsview_agent_version
+
+    - name: Display source OpsView Agent package
+      debug:
+        var:  opsview_agent_package
+
     - name: Update OpsView Agent version
       debug:
         msg:  "Upgrading OpsView Agent version {{ opsview_agent_current_version }} to {{ opsview_agent_version }}"
