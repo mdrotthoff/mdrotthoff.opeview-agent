@@ -28,5 +28,5 @@
   when:   (opsview_agent_version is version(opsview_agent_current_version, '<='))
 
 - name: Configure local plug-ing support for the OpsView Agent
-  include_tasks: agent_local_config.yml
+  include_tasks: plugin_config.yml
   
