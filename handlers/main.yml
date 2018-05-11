@@ -1,5 +1,21 @@
 ---
 # $Author$
 # $Date$
+# $Source$
 
-# handlers file for opsview
+# handlers file for opsview-agent
+- name: Stop the OpsView agent
+  listen: Restart OpsView agent
+  debug:
+    msg:  "Stopping {{opsview_plugin_service}}"
+#  service:
+#    name:  "{{opsview_plugin_service}}"
+#    state: stopped
+
+- name: Start the OpsView agent
+  listen: Restart OpsView agent
+  debug:
+    msg:  "Starting {{opsview_plugin_service}}"
+#  service:
+#    name:  "{{opsview_plugin_service}}"
+#    state: started

@@ -1,11 +1,78 @@
 ---
 # $Author$
 # $Date$
+# $Source$
 
 # tasks file for opsview
-- name: Create directory for additional config files
-  file: state=directory
-        owner="{{nrpe_user}}"
-        group="{{nrpe_group}}"
-        mode=0755
-        path="{{nrpe_include_dir}}"
+- name: Get the version of Opsview-Agent installed
+  package:
+    list:    opsview-agent
+  register:  opsview_agent_version
+
+- name: Set opsview_agent_current_version with the current version installed
+  set_fact:
+    opsview_agent_current_version:  "{{ opsview_agent_version.results[0].version }}"
+
+- name: Check the version of the Opsview-Agent installed
+  block:
+    - name: Update OpsView Agent version
+      debug:
+        msg:  "Upgrading OpsView Agent version {{ opsview_agent_current_version }} to {{ opsview_agent.source_version }}"
+
+#  - name: Calculate the OpsView Agent file name
+#    set_fact:
+#      opsview_agent_file_name:  "opsview/agents/{{ opsview_agent_package }}"
+ 
+    - name: Calculate the OpsView Agent source and target
+      set_fact:
+        opsview_source_file:      "opsview/agents/{{ opsview_agent_package }}"
+        opsview_destination_file: "/tmp/{{ opsview_agent_package }}"
+
+#  - name: Copy OpsView Agent rpm file to server
+#    copy:
+#      src:   "{{ opsview_source_file }}"
+#      dest:  "{{ opsview_destination_file }}"
+#      owner: root
+#      group: root
+#      mode:  '0600'
+
+    - name: Copy OpsView Agent rpm file to server
+      copy:
+        src:   "opsview/agents/{{ opsview_agent_package }}"
+        dest:  "/tmp/{{ opsview_agent_package }}"
+        owner: root
+        group: root
+        mode:  '0600'
+
+    - name: Install the OpsView Agent package.
+      package:
+        name:         "/tmp/{{ opsview_agent_package }}"
+        state:        present
+      ignore_errors:  "{{ ansible_check_mode }}"
+      notify:         Restart OpsView
+
+#  - name: Stop the OpsView Agent
+#    service:
+#      name:    "{{ opsview_agent_service}}"
+#      state:   stopped
+#      enabled: false
+#    register:  opsview_service_stop
+
+  when:  (opsview_agent_current_version | version_compare(opsview_agent_version, 'lt'))
+
+
+- name: OpsView Agent version is current
+  debug:
+    msg:  "OpsView Agent version {{ opsview_agent.source_version }} is already current"
+  when:   (opsview_agent_current_version | version_compare(opsview_agent_version, 'ge'))
+
+#- name: Start the OpsView Agent
+#  service:
+#    name:                           "{{ opsview_agent.service_name }}"
+#    state:                          started
+#    enabled:                        True
+#  register:                         opsview_service_start
+
+#- name: Dump variables at the end of opsview-db-deploy
+#  debug:
+#    var:                            opsview_service_start
