@@ -31,7 +31,7 @@
 
 - name: Create list of sources to install
   set_fact:
-    opsview_agent_plugin_list: "{{ ((plugin_item.source | default([])) | list + [ plugin_item.name ]) | unique }}"
+    opsview_agent_plugin_source_list: "{{ ((plugin_item.source | default([])) | list + [ plugin_item.name ]) | unique }}"
 
 - name: Dump created source list
   debug:
