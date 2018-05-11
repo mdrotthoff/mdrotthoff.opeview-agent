@@ -28,7 +28,7 @@
 
 - name: OpsView Agent version is current
   debug:
-    msg:  "OpsView Agent version {{ opsview_agent_current_version }} is already current"
+    msg:  "OpsView Agent version {{ opsview_agent_current_version }} is current"
   when:   (opsview_agent_version is version(opsview_agent_current_version, '<='))
 
 - name: Configure local extensions for the OpsView Agent

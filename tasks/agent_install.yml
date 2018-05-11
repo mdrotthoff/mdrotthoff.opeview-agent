@@ -22,13 +22,19 @@
     name:         "/tmp/{{ opsview_agent_package }}"
     state:        present
   notify:         Restart OpsView Agent
-  register:       opsview_agent_install
   ignore_errors:  "{{ ansible_check_mode }}"
 
-#- name: Set opsview_agent_current_version with the current version installed
-#  set_fact:
-#    opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
-#  when:                             opsview_agent_version_check.results[0] is defined
+- name: Get the current version of Opsview-Agent installed
+  package:
+    list:    opsview-agent
+  register:  opsview_agent_version_check
+
+# Ignore errors while in check mode
+- name: Set opsview_agent_current_version with the version now installed
+  set_fact:
+    opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
+  when:                             opsview_agent_version_check.results[0] is defined
+  ignore_errors:  "{{ ansible_check_mode }}"
 
 - name: Remove the temporary packaged used for the install
   file:
