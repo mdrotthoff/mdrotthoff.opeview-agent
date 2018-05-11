@@ -40,7 +40,16 @@
 
 - name: Dump plugin sources
   debug:
-    var: "{{ plugin_item.source | default([]) }} + [ '{{ plugin_item.name }}' ] | unique"
+    var: "{{ plugin_item.source }}"
+  when:    plugin_item.source is defined
+
+- name: Dump plugin name
+  debug:
+    var: "{{ plugin_item.name }}"
+
+- name: Dump plugin sources to install
+  debug:
+    var: "{{ plugin_item.source | default([]) }} | list + [ '{{ plugin.name }}' ]"
 
 - name: Copy the source to the local plug-in directory
   copy:
