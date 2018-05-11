@@ -22,8 +22,13 @@ opsview_agent_plugin_source:     "files/opsview/plugin"
 opsview_agent_plugins:
 - name: 'check_diskstat'
   source:
-  -    'check_diskstat'
-  -    'check_diskstat.cfg'
+  -     'check_diskstat'
   sudo:  false
 - name: 'check_es_attribute_jsonpath_vauto'
   sudo:  false
+- name: 'check_oracle_vauto'
+  source:
+  -     'check_oracle_vauto'
+  -     'check_oracle_vauto.cfg'
+  sudo:  false
+  
