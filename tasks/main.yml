@@ -25,7 +25,7 @@
  
     - name: Calculate the OpsView Agent source and target
       set_fact:
-        opsview_source_file:      "opsview/agents/{{ opsview_agent_package }}"
+        opsview_source_file:      "files/opsview/agents/{{ opsview_agent_package }}"
         opsview_destination_file: "/tmp/{{ opsview_agent_package }}"
 
 #  - name: Copy OpsView Agent rpm file to server
