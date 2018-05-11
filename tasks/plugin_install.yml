@@ -31,12 +31,17 @@
 
 - name: Copy the source to the local plug-in directory
   copy:
+    src:   "{{ opsview_agent_plugin_source }}/{{ plugin_item.name }}"
+    dest:  "{{ opsview_agent_plugin_local }}/{{ plugin_item.name }}"
+    owner: root
+    group: root
+    mode:  '0600'
+
+- name: Copy the source to the local plug-in directory
+  copy:
     src:   "{{ opsview_agent_plugin_source }}/{{ item }}"
     dest:  "{{ opsview_agent_plugin_local }}/{{ item }}"
     owner: root
     group: root
     mode:  '0600'
-  loop:
-  - "{{ plugin_item.source }}"
-  - "{{ plugin_item.name }}"
-
+  loop:    "{{ plugin_item.source }}"
