@@ -45,3 +45,4 @@
     group: root
     mode:  '0600'
   loop:    "{{ plugin_item.source }}"
+  when:    plugin_item.source is defined
