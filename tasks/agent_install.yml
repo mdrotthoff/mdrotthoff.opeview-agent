@@ -4,8 +4,6 @@
 # $Source$
 
 # agent-install tasks file for opsview-agent
-#- name: Check the version of the Opsview-Agent installed
-#  block:
 - name: Update OpsView Agent version
   debug:
     msg:  "Upgrading OpsView Agent version {{ opsview_agent_current_version }} to {{ opsview_agent_version }}"
