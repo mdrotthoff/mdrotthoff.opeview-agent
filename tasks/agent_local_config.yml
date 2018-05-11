@@ -9,7 +9,7 @@
     state: directory
     owner: "{{opsview_agent_user}}"
     group: "{{opsview_agent_group}}"
-    mode:  0750
+    mode:  0755
     path:  "{{opsview_agent_cfg_local}}"
 
 - name: Create directory for local plug-in files
@@ -17,7 +17,7 @@
     state: directory
     owner: "{{opsview_agent_user}}"
     group: "{{opsview_agent_group}}"
-    mode:  0750
+    mode:  0755
     path:  "{{opsview_agent_plugin_local}}"
 
 - name: Ensure the local config files are included
