@@ -1,1 +1,1 @@
-command[{{ plugin_item.name }}]={{ opsview_agent_plugin_local }}/{{ plugin_item.name }}
+command[{{ plugin_item.name }}]={{ opsview_agent_plugin_local }}/{{ plugin_item.name }} {% for i in plugin_item.arg_count %}$ARG{{ i }}$ {% endfor %}
