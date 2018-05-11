@@ -11,7 +11,7 @@
 
 - name: Set opsview_agent_current_version with the current version installed
   set_fact:
-    opsview_agent_current_version:  "{{ opsview_agent_current_version.results[0].version }}"
+    opsview_agent_current_version:  "{{ opsview_agent_current_version.results[0].version }} | default('')"
 
 - name: Install the OpsView agent if needed
   include_tasks: agent_install.yml
