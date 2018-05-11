@@ -49,7 +49,7 @@
 
 - name: Dump plugin sources to install
   debug:
-    var: ({{ plugin_item.source | default([]) }} | list) + [ {{ plugin.name }} ]
+    var: "({{ plugin_item.source | default([]) }} | list) + [ {{ plugin.name }} ]"
 
 - name: Dump unique plugin sources to install
   debug:
