@@ -6,6 +6,10 @@
 # plugin-install file for opsview-agent
 
 # Deploy and configure the local plugins
+- name: Dump the host variables oin the plugin_install tasks
+  debug:
+    var:  vars
+
 - name: Display the name of the plugin
   debug:
     msg: "Processing plug-in named {{ plugin_item.name }}"
