@@ -13,15 +13,14 @@
   debug:
     var:  vars
 
+- name: Set a default opsview_agent_current_version
+  set_fact:
+    opsview_agent_current_version:  "0.0.0"
+
 - name: Set opsview_agent_current_version with the current version installed
   set_fact:
     opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
   when:                             opsview_agent_version_check.results[0] is defined
-
-- name: Set a default opsview_agent_current_version if it is not currently defined
-  set_fact:
-    opsview_agent_current_version:  ""
-  when:                             opsview_agent_current_version is not defined
 
 - name: Install the OpsView agent if needed
   include_tasks: agent_install.yml
