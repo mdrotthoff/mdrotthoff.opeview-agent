@@ -15,7 +15,7 @@ opsview_agent_plugin_local:      "{{ opsview_agent_plugin_directory }}/nrpe_loca
 opsview_agent_service:           "opsview-agent"
 opsview_agent_version:           "5.4.0.171370838"
 opsview_agent_release:           "1"
-opsview_agent_package:           "opsview-agent-{{ opsview_agent_version }}-{{ anisble_agent_release }}.el{{ ansible_distribution_major_version }}.{ {ansible_architecture }}.rpm"
+opsview_agent_package:           "opsview-agent-{{ opsview_agent_version }}-{{ opsview_agent_release }}.el{{ ansible_distribution_major_version }}.{{ ansible_architecture }}.rpm"
 opsview_agent_agent_source:      "files/opsview/agent"
 opsview_agent_plugin_source:     "files/opsview/plugin"
 
@@ -33,4 +33,3 @@ opsview_agent_plugins:
   -          'check_oracle_vauto.cfg'
   arg_count: 4
   sudo:      false
-  
