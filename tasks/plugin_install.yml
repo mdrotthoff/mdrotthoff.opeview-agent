@@ -16,6 +16,7 @@
 - name: Display the sudo status of the plugin
   debug:
     msg: "Plug-in requires sudo {{ plugin_item.sudo }}"
+  when:  plugin_item.sudo is defined
 
 - name: Installing plug-in {{ plugin_item.name }}
   debug:
