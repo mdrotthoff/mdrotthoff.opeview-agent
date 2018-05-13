@@ -34,9 +34,9 @@
   set_fact:
     opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
   when:                             opsview_agent_version_check.results[0] is defined
-  ignore_errors:  "{{ ansible_check_mode }}"
+  ignore_errors:                    "{{ ansible_check_mode }}"
 
 - name: Remove the temporary package used for the install
   file:
-    name:         "/tmp/{{ opsview_agent_package }}"
-    state:        absent
+    name:  "/tmp/{{ opsview_agent_package }}"
+    state: absent

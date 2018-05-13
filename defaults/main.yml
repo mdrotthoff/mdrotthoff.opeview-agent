@@ -31,4 +31,4 @@ opsview_agent_plugins:
   -            'check_oracle_vauto'
   -            'check_oracle_vauto.cfg'
   arg_count:   4
-  sudo:        'wheel'
+  sudo:        'group'

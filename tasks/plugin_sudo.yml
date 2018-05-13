@@ -1,0 +1,33 @@
+---
+# $Author$
+# $Date$
+# $Source$
+
+# plugin_sudo tasks file for opsview-agent
+
+- name: Find the sudoers includedir location
+  include_tasks: plugin_sudoers_includedir.yml
+  when:          ansible_agent_sudoers_d is not defined
+
+#- name: Dump the sudoers includedir selected
+#  debug:
+#    var: ansible_agent_sudoers_d
+
+#- name: Ensure the sudoers.d directory {{ agent_sudoers_d }} exists
+#  file:
+#    state:        directory
+#    owner:        'root'
+#    group:        'root'
+#    mode:         0440
+#    path:         "{{ ansible_agent_sudoers_d }}"
+#  ignore_errors:  "{{ ansible_check_mode }}"
+
+- name: Create the sudo configuration file for {{ plugin_item.name }}
+  template:
+    src:         plugin_sudo.j2
+    dest:        "{{ ansible_agent_sudoers_d }}/{{ plugin_item.name }}"
+    owner:       'root'
+    group:       'root'
+    mode:        '0440'
+    backup:      false
+  ignore_errors: "{{ ansible_check_mode }}"

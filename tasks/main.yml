@@ -9,9 +9,9 @@
     list:    opsview-agent
   register:  opsview_agent_version_check
 
-- name: Dump the host variables
-  debug:
-    var:  vars
+#- name: Dump the host variables
+#  debug:
+#    var:  vars
 
 - name: Set a default OpsView Agent version of 0.0.0
   set_fact:
@@ -31,8 +31,20 @@
     msg:  "OpsView Agent version {{ opsview_agent_current_version }} is current"
   when:   (opsview_agent_version is version(opsview_agent_current_version, '<='))
 
-- name: Configure local plug-ing support for the OpsView Agent
+- name: Configure local plug-in support for the OpsView Agent
   include_tasks: plugin_config.yml
+
+#- name: Find the location of the sudoers include directory
+#  command:  grep '^#includedir' /etc/sudoers
+#  register: ansible_agent_sudoers
+
+#- name: Dump the sudoers include
+#  debug:
+#    var: ansible_agent_sudoers
+
+#- name: Display the first found sudoers include directory
+#  debug:
+#    msg: "First found sudoers include dir is {{ ansible_agent_sudoers.stdout_lines[0].split(' ')[1] }}"
 
 - name: Deploy and configure local plug-ins
   include_tasks: plugin_install.yml
@@ -40,4 +52,3 @@
   loop_control:
     loop_var:    plugin_item
   when:          opsview_agent_plugins is defined
-
