@@ -3,48 +3,29 @@
 # $Date$
 # $Source$
 
-# tasks file for opsview-agent
-- name: Get the version of Opsview-Agent installed
+# main file for opsview-agent
+
+- name: Get the current version of Opsview-Agent installed
   package:
-    list:    opsview-agent
-  register:  opsview_agent_version_check
-
-#- name: Dump the host variables
-#  debug:
-#    var:  vars
-
-- name: Set a default OpsView Agent version of 0.0.0
-  set_fact:
-    opsview_agent_current_version:  "0.0.0"
+    list:     opsview-agent
+  register:   opsview_agent_version_check
 
 - name: Capture the version of the OpsView Agent currently installed
   set_fact:
     opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
-  when:                             opsview_agent_version_check.results[0] is defined
+  when: opsview_agent_version_check.results[0] is defined
 
-- name: Install the OpsView agent if needed
+- name: Set a default OpsView Agent version of 0.0.0
+  set_fact:
+    opsview_agent_current_version:  "0.0.0"
+  when: opsview_agent_current_version is not defined
+
+- name: Installing / Upgrading OpsView Agent version from {{ opsview_agent_current_version }} to {{ opsview_agent_version }}
   include_tasks: agent_install.yml
   when:          (opsview_agent_version is version(opsview_agent_current_version, '>'))
 
-- name: Verify that the OpsView Agent version is current
-  debug:
-    msg:  "OpsView Agent version {{ opsview_agent_current_version }} is current"
-  when:   (opsview_agent_version is version(opsview_agent_current_version, '<='))
-
-- name: Configure local plug-in support for the OpsView Agent
+- name: Configure local plug-in support for the OpsView Agent version {{ opsview_agent_current_version }}
   include_tasks: plugin_config.yml
-
-#- name: Find the location of the sudoers include directory
-#  command:  grep '^#includedir' /etc/sudoers
-#  register: ansible_agent_sudoers
-
-#- name: Dump the sudoers include
-#  debug:
-#    var: ansible_agent_sudoers
-
-#- name: Display the first found sudoers include directory
-#  debug:
-#    msg: "First found sudoers include dir is {{ ansible_agent_sudoers.stdout_lines[0].split(' ')[1] }}"
 
 - name: Deploy and configure local plug-ins
   include_tasks: plugin_install.yml

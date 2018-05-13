@@ -4,21 +4,12 @@
 # $Source$
 
 # handlers file for opsview-agent
-- name: Message stopping the OpsView Agent
-  listen: Restart OpsView Agent
-  debug:
-    msg:  "Stopping {{ opsview_agent_service }}"
 
 - name: Stop the OpsView Agent
   listen: Restart OpsView Agent
   service:
     name:  "{{ opsview_agent_service }}"
     state: stopped
-
-- name: Message starting the OpsView Agent
-  listen: Restart OpsView Agent
-  debug:
-    msg:  "Starting {{ opsview_agent_service }}"
 
 - name: Start the OpsView Agent
   listen: Restart OpsView Agent

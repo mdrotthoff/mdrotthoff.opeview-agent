@@ -4,39 +4,35 @@
 # $Source$
 
 # agent-install tasks file for opsview-agent
-- name: Install / upgrade the OpsView Agent version
-  debug:
-    msg:  "Upgrading OpsView Agent version from {{ opsview_agent_current_version }} to {{ opsview_agent_version }}"
 
 - name: Copy OpsView Agent package file to the host
   copy:
-    src:   "{{ opsview_agent_agent_source }}/{{ opsview_agent_package }}"
-    dest:  "/tmp/{{ opsview_agent_package }}"
-    owner: root
-    group: root
-    mode:  '0600'
+    src:      "{{ opsview_agent_agent_source }}/{{ opsview_agent_package }}"
+    dest:     "/tmp/{{ opsview_agent_package }}"
+    owner:    root
+    group:    root
+    mode:     '0600'
+  check_mode: false
 
-# Ignore errors while in check mode
 - name: Install the OpsView Agent package.
   package:
     name:         "/tmp/{{ opsview_agent_package }}"
     state:        present
   notify:         Restart OpsView Agent
-  ignore_errors:  "{{ ansible_check_mode }}"
 
 - name: Get the version of the Opsview Agent now installed
   package:
-    list:    opsview-agent
-  register:  opsview_agent_version_check
+    list:     opsview-agent
+  register:   opsview_agent_version_check_upgrade
+  check_mode: false
 
-# Ignore errors while in check mode
 - name: Capture the version of the OpsView Agent now installed
   set_fact:
-    opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
-  when:                             opsview_agent_version_check.results[0] is defined
-  ignore_errors:                    "{{ ansible_check_mode }}"
+    opsview_agent_current_version:  "{{ opsview_agent_version_check_upgrade.results[0].version }}"
+  when:                             opsview_agent_version_check_upgrade.results[0] is defined
 
 - name: Remove the temporary package used for the install
   file:
-    name:  "/tmp/{{ opsview_agent_package }}"
-    state: absent
+    name:     "/tmp/{{ opsview_agent_package }}"
+    state:    absent
+  check_mode: false

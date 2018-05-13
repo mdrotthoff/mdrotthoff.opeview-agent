@@ -4,6 +4,7 @@
 # $Source$
 
 # agent_local_config tasks file for opsview-agent
+
 - name: Create directory for local plug-in configuration files
   file:
     state:        directory
@@ -11,7 +12,6 @@
     group:        "{{ opsview_agent_group }}"
     mode:         0755
     path:         "{{ opsview_agent_cfg_local }}"
-  ignore_errors:  "{{ ansible_check_mode }}"
 
 - name: Create directory for local plug-in files
   file:
@@ -20,7 +20,6 @@
     group:       "{{ opsview_agent_group }}"
     mode:        0755
     path:        "{{ opsview_agent_plugin_local }}"
-  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Ensure the local plug-in configuration files are included by the agent
   lineinfile:
