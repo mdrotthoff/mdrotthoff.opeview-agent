@@ -25,7 +25,7 @@
     dest:   "{{ opsview_agent_plugin_local }}/{{ item }}"
     owner:  "{{ opsview_agent_user }}"
     group:  "{{ opsview_agent_group }}"
-    mode:   '0644'
+    mode:   '0754'
   loop:     "{{ opsview_agent_plugin_source_list }}"
 
 - name: Create the necessary sudoers entry for {{ plugin_item.name }} if requested
