@@ -1,9 +1,8 @@
 # Managed by Ansible
-Cmnd_Alias  OPSPLUGIN_{{ plugin_item.name }} = {{ opsview_agent_plugin_local }}/{{ plugin_item.name }}
 {% if plugin_item.sudo == 'user' %}
-{{ opsview_agent_user }} ALL = NOPASSWD: OPSPLUGIN_{{ plugin_item.name }}
+{{ opsview_agent_user }} ALL = NOPASSWD: {{ opsview_agent_plugin_local }}
 {% elif plugin_item.sudo == 'group' %}
-{{ '%' }}{{ opsview_agent_group }} ALL = NOPASSWD: OPSPLUGIN_{{ plugin_item.name }}
+{{ '%' }}{{ opsview_agent_group }} ALL = NOPASSWD: {{ opsview_agent_plugin_local }}
 {% else %}
-# Undefined sudo type
+# Undefined sudo type for {{ opsview_agent_plugin_local }}
 {% endif %}
