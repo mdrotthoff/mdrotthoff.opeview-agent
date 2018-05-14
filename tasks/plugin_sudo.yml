@@ -12,7 +12,7 @@
 - name: Create the sudo configuration file for {{ plugin_item.name }}
   template:
     src:         plugin_sudo.j2
-    dest:        "{{ ansible_agent_sudoers_d }}/{{ plugin_item.name }}"
+    dest:        "{{ ansible_agent_sudoers_d }}/{{ opsview_agent_user }}_{{ plugin_item.name }}"
     owner:       'root'
     group:       'root'
     mode:        '0440'
