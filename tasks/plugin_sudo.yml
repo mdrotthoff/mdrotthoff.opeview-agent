@@ -17,3 +17,4 @@
     group:       'root'
     mode:        '0440'
     backup:      false
+    validate:    '/usr/sbin/visudo -cf %s'
