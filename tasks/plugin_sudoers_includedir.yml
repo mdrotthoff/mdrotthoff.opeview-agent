@@ -19,5 +19,5 @@
     state:        directory
     owner:        'root'
     group:        'root'
-    mode:         0440
+    mode:         0750
     path:         "{{ ansible_agent_sudoers_d }}"
