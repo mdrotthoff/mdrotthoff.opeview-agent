@@ -5,31 +5,46 @@
 
 # main file for opsview-agent
 
-- name: Get the current version of Opsview-Agent installed
+- name: Get the current version of opsview-agent installed
   package:
     list:     opsview-agent
   register:   opsview_agent_version_check
+  tags:
+  - install
+  - opsview
 
-- name: Capture the version of the OpsView Agent currently installed
+- name: Capture the version of the opsview-agent currently installed
   set_fact:
     opsview_agent_current_version:  "{{ opsview_agent_version_check.results[0].version }}"
   when: opsview_agent_version_check.results[0] is defined
+  tags:
+  - install
+  - opsview
 
-- name: Set a default OpsView Agent version of 0.0.0
+- name: Set a default opsview-agent version of 0.0.0 if not currently installed
   set_fact:
     opsview_agent_current_version:  "0.0.0"
   when: opsview_agent_current_version is not defined
+  tags:
+  - install
+  - opsview
 
-- name: Installing / Upgrading OpsView Agent version from {{ opsview_agent_current_version }} to {{ opsview_agent_version }}
+- name: Installing / Upgrade the opsview-agent to version {{ opsview_agent_version }}
   include_tasks: agent_install.yml
   when:          (opsview_agent_version is version(opsview_agent_current_version, '>'))
+  tags:
+  - install
+  - opsview
 
-- name: Configure local plug-in support for the OpsView Agent version {{ opsview_agent_current_version }}
+- name: Configure local plug-in support for the opsview-agent
   include_tasks: plugin_config.yml
+  tags:
+  - configuration
+  - opsview
 
-- name: Deploy and configure local plug-ins
-  include_tasks: plugin_install.yml
-  loop:          "{{ opsview_agent_plugins }}"
-  loop_control:
-    loop_var:    plugin_item
-  when:          opsview_agent_plugins is defined
+#- name: Deploy and configure local plug-ins
+#  include_tasks: plugin_install.yml
+#  loop:          "{{ opsview_agent_plugins }}"
+#  loop_control:
+#    loop_var:    plugin_item
+#  when:          opsview_agent_plugins is defined
