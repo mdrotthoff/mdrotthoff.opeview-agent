@@ -5,7 +5,7 @@
 
 # agent-install tasks file for opsview-agent
 
-- name: Copy OpsView Agent package file to the host
+- name: Copy opsview-agent package to the host
   copy:
     src:      "{{ opsview_agent_agent_source }}/{{ opsview_agent_package }}"
     dest:     "/tmp/{{ opsview_agent_package }}"
@@ -14,24 +14,24 @@
     mode:     '0600'
   check_mode: false
 
-- name: Install the OpsView Agent package.
+- name: Install the opsview-agent package.
   package:
     name:         "/tmp/{{ opsview_agent_package }}"
     state:        present
   notify:         Restart OpsView Agent
 
-- name: Get the version of the Opsview Agent now installed
+- name: Get the version of the opsview-agent now installed
   package:
     list:     opsview-agent
   register:   opsview_agent_version_check_upgrade
   check_mode: false
 
-- name: Capture the version of the OpsView Agent now installed
+- name: Capture the version of the opsview-agent now installed
   set_fact:
     opsview_agent_current_version:  "{{ opsview_agent_version_check_upgrade.results[0].version }}"
   when:                             opsview_agent_version_check_upgrade.results[0] is defined
 
-- name: Remove the temporary package used for the install
+- name: Remove the temporary opsview-agent used for the install
   file:
     name:     "/tmp/{{ opsview_agent_package }}"
     state:    absent
